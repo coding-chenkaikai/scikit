@@ -70,7 +70,7 @@ print('knn-r：', knn.score(x_train, y_train))
 
 t = np.arange(len(x_test))
 plt.figure(figsize=(12, 9), facecolor='w')
-plt.ylim(-0.1, 2.5)
+plt.ylim(-0.5, 2.5)
 plt.plot(t, y_test, 'ro', markersize=6, zorder=3, label=u'真实值')
 plt.plot(t, y_predict, 'go', markersize=10, zorder=2, label=u'logistic预测值,$R^2$=%.3f' % result.score(x_test, y_test))
 plt.plot(t, knn_y_predict, 'yo', markersize=16, zorder=1, label=u'knn预测值,$R^2$=%.3f' % knn.score(x_test, y_test))
