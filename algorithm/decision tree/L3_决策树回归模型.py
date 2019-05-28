@@ -1,4 +1,4 @@
-# -*- coding: UTF-8 -*-
+# -*- coding: UTF-8 -*-# -*- coding: UTF-8 -*-
 """
     决策树预测波士顿房屋价格
     算法：决策树
@@ -22,6 +22,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.feature_selection import SelectKBest
 from sklearn.feature_selection import chi2
 
+from sklearn.externals.six import StringIO
 from IPython.display import Image, display
 from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import MinMaxScaler
@@ -47,39 +48,18 @@ y = df.iloc[:, -1]
 x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.2, random_state=0)
 
 # 模型训练
-models = [
-    Pipeline([
-        ('ss', MinMaxScaler()),
-        ('pca', PCA()),
-        ('decision', DecisionTreeRegressor(random_state=0))
-    ]),
-    Pipeline([
-        ('ss', MinMaxScaler()),
-        ('decision', DecisionTreeRegressor(random_state=0))
-    ])
-]
+ss = MinMaxScaler()
+x_train = ss.fit_transform(x_train)
+x_test = ss.transform(x_test)
 
-# parameters = [
-#     {
-#         'pca__n_components': [0.25, 0.5, 0.75, 1],
-#         'decision__criterion': ['mse', 'mae'],
-#         'decision__max_depth': np.arange(1, 11)
-#     },
-#     {
-#         'decision__criterion': ['mse', 'mae'],
-#         'decision__max_depth': np.arange(1, 11)
-#     }
-# ]
-#
-# for i in np.arange(len(models)):
-#     gscv = GridSearchCV(models[i], param_grid=parameters[i])
-#     gscv.fit(x_train, y_train)
-#     print('最优参数：', gscv.best_params_)
-#     print('score：', gscv.best_score_)
-#     print('最优模型：', gscv.best_estimator_)
-
-model = models[1]
-model.set_params(decision__criterion='mae', decision__max_depth=3)
+model = DecisionTreeRegressor(criterion='mae', max_depth=5)
 model.fit(x_train, y_train)
 y_predict = model.predict(x_test)
-print('score：', model.score(x_train, y_train))
+print('score：', model.score(x_test, y_test))
+
+# wget -c https://graphviz.gitlab.io/_pages/Download/windows/graphviz-2.38.msi
+# pip install pydotplus
+out = StringIO()
+tree.export_graphviz(model, out_file=out, filled=True, rounded=True, special_characters=True)
+graph = pydotplus.graph_from_dot_data(out.getvalue())
+graph.write_pdf('dot.pdf')
