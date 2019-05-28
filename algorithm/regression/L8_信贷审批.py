@@ -47,7 +47,7 @@ classification = ['A16']
 datas = df[unprocess].join(pd.get_dummies(df[process])).astype('float64')
 label = pre_processing.LabelEncoder()
 datas['A16'] = label.fit_transform(df[classification])
-print(datas.info())
+# print(datas.info())
 
 x = datas.iloc[:, :-1]
 y = datas.iloc[:, -1]
