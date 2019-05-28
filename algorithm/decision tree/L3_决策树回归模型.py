@@ -59,7 +59,6 @@ print('score：', model.score(x_test, y_test))
 
 # wget -c https://graphviz.gitlab.io/_pages/Download/windows/graphviz-2.38.msi
 # pip install pydotplus
-out = StringIO()
-tree.export_graphviz(model, out_file=out, filled=True, rounded=True, special_characters=True)
-graph = pydotplus.graph_from_dot_data(out.getvalue())
+dot_data = tree.export_graphviz(model, out_file=None, filled=True, rounded=True, special_characters=True)
+graph = pydotplus.graph_from_dot_data(dot_data)
 graph.write_pdf('dot.pdf')
