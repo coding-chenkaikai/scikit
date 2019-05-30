@@ -1,4 +1,7 @@
 # -*- coding: UTF-8 -*-
+"""
+    numpy序列示例
+"""
 
 import numpy as np
 
@@ -19,6 +22,5 @@ import numpy as np
 # np.linspace(start=1, stop=10, num=10) 产生等差数列
 # np.logspace(start=1, stop=100, num=10) 产生等比数列
 
-if __name__ == '__main__':
-    x = np.random.randint(100, 200, size=(20, ))
-    print(np.random.choice(x, (2, 3), replace=False))
+x = np.random.randint(100, 200, size=(20, ))
+print(np.random.choice(x, (2, 3), replace=False))

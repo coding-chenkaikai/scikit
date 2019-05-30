@@ -1,4 +1,7 @@
 # -*- coding: UTF-8 -*-
+"""
+    matplotlib示例
+"""
 
 import numpy as np
 import matplotlib.pyplot as plt
@@ -50,8 +53,3 @@ def histogram():
     plt.grid(True)
     plt.show()
 
-if __name__ == '__main__':
-    # square()
-    generate_data()
-    # heart()
-    # histogram()
